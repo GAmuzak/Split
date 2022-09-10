@@ -15,15 +15,11 @@ public class InputHandler : MonoBehaviour
     // private Vector3 movementInputCorrected;
 
 
-    public void OnMovementInput(InputAction.CallbackContext ctx)
+    public void OnMovementInput(InputAction.CallbackContext input)
     {
-        if (!canMove) return;
-        canMove = false;
-        Vector2 movementInput = ctx.ReadValue<Vector2>();
-        if (movementInput.x > 0 && movementInput.y > 0) movementInput = new Vector2(movementInput.x, 0);
-        Vector3 movementInputCasted = new(movementInput.x, 0, movementInput.y);
+        Vector2 movementInput = input.ReadValue<Vector2>();
+        Vector3 movementInputCasted = new Vector3(movementInput.x, 0 , movementInput.y);
         MovementDirection?.Invoke(movementInputCasted);
-        StartCoroutine(moveCooldown());
         
         if(cloningOngoing) CloneCreator?.Invoke(movementInputCasted);
         cloningOngoing = false;

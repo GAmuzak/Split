@@ -1,0 +1,65 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CloneController : Controller
+{
+    private bool canDestroy;
+    private Vector3 mirrorLine;
+
+    private void Start()
+    {
+        StartCoroutine(WaitBeforeMerge());
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+    }
+
+    protected override void Movement(Vector3 dirn)
+    {
+        Vector3 targetMove = new Vector3(dirn.x * mirrorLine.x, dirn.y * mirrorLine.y, dirn.z * mirrorLine.z);
+        base.Movement(targetMove);
+        //if(mirrorLine==0)
+        /*{
+            //Vector3 targetMove = new(-1 * dirn.x,0, dirn.z);
+            if (!validDirections.Contains(targetMove)) return;
+            LeanTween.move(gameObject, transform.position + 2*targetMove, animationTime).setEase(easeCurve);
+        }
+        else
+        {
+            //Vector3 targetMove = new(dirn.x,0, -1*dirn.z);
+            if (!validDirections.Contains(targetMove)) return;
+            LeanTween.move(gameObject, transform.position + 2*targetMove, animationTime).setEase(easeCurve);
+        }*/
+    }
+
+    public void Spawn(Vector3 parentPosition, Vector3 moveDirn)
+    {
+        LeanTween.move(gameObject, parentPosition + 2*moveDirn, animationTime).setEase(easeCurve);
+        mirrorLine = moveDirn.x != 0 ? new Vector3(-1,0,1) :  new Vector3(1,0,-1);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        if (!canDestroy) return;
+        if (other.CompareTag("Player") || other.CompareTag("Clone"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private IEnumerator WaitBeforeMerge()
+    {
+        yield return new WaitForSeconds(0.2f);
+        canDestroy = true;
+    }
+}

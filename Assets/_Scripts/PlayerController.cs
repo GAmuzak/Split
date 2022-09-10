@@ -2,52 +2,40 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Controller
 {
-    [SerializeField] private float time;
-    [SerializeField] private LeanTweenType easeCurve;
     [SerializeField] private GameObject clone;
     [SerializeField] private Transform cloneContainer;
     [SerializeField] private GameObject preview;
     [SerializeField] private Transform previewCloneContainer;
 
-    private List<Vector3> validDirections=new();
-
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        InputHandler.MovementDirection += Movement;
+        base.OnEnable();
         InputHandler.CloneCreator += CreateClone;
         InputHandler.ClonePreview += PreviewValidMoves;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        InputHandler.MovementDirection -= Movement;
+        base.OnDisable();
         InputHandler.CloneCreator -= CreateClone;
         InputHandler.ClonePreview -= PreviewValidMoves;
     }
 
-    private void Movement(Vector3 moveDirn)
+    protected override void Movement(Vector3 moveDirn)
     {
-        if (!validDirections.Contains(moveDirn)) return;
-            LeanTween.move(gameObject, transform.position + 2*moveDirn, time).setEase(easeCurve);
+        base.Movement(moveDirn);
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Tile"))
-        {
-            validDirections=other.gameObject.GetComponent<Tile>().GetValidDirections();
-        }
-    }
+    
 
     private void PreviewValidMoves()
     {
         foreach (Vector3 validDirection in validDirections)
         {
-            if (!validDirections.Contains(-1 * validDirection)) continue;
+            if (!validDirections.Contains(-validDirection)) continue;
             GameObject previewClone=Instantiate(preview, transform.position, Quaternion.identity,previewCloneContainer);
-            LeanTween.move(previewClone, transform.position + 2 * validDirection, time).setEase(easeCurve);
+            LeanTween.move(previewClone, transform.position + 2 * validDirection, animationTime).setEase(easeCurve);
         }
     }
 
