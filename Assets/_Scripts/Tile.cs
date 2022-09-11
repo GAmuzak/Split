@@ -9,15 +9,13 @@ public class Tile : MonoBehaviour
     private Vector3[] checklist;
     private float destroyTime = 0.3f;
 
-    private void Start()
+    private void Awake()
     {
         checklist = new[] { transform.forward, -transform.forward, -transform.right, transform.right };
-        Debug.Log(checklist);
     }
 
     public List<Vector3> GetValidDirections()
     {
-        Debug.Log(validDirections);
         validDirections.Clear();
         foreach (Vector3 direction in checklist)
         {

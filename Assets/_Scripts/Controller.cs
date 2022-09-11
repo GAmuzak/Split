@@ -7,7 +7,7 @@ public abstract class Controller : MonoBehaviour
 {
     [SerializeField] protected float animationTime;
     [SerializeField] protected LeanTweenType easeCurve;
-    protected static bool canMove = true;
+    protected bool canMove = true;
         
     protected List<Vector3> validDirections=new();
 
@@ -25,18 +25,14 @@ public abstract class Controller : MonoBehaviour
     {
         OnNewTileEntered();
     }
-
-    void Update()
-    {
-        
-    }
+    
 
     protected virtual void Movement(Vector3 moveDirn)
     {
         if (!canMove) {return;}
         canMove = false;
         if (moveDirn.x > 0 && moveDirn.z > 0) moveDirn = new Vector3(moveDirn.x, 0, 0);
-        if (validDirections.Contains(moveDirn));
+        if (validDirections.Contains(moveDirn))
             LeanTween.move(gameObject, transform.position + 2*moveDirn, animationTime).setEase(easeCurve);
         StartCoroutine(moveCooldown());
     }
@@ -47,10 +43,8 @@ public abstract class Controller : MonoBehaviour
         if (Physics.Raycast(belowObject, out RaycastHit raycastHit, Mathf.Infinity))
         {
             Transform tileUnderObject = raycastHit.transform;
-            Debug.Log(tileUnderObject.gameObject.name);
             if (tileUnderObject.CompareTag("Tile"))
             {
-                
                 validDirections = tileUnderObject.GetComponent<Tile>().GetValidDirections();
             }
         }
@@ -58,12 +52,11 @@ public abstract class Controller : MonoBehaviour
     
     protected IEnumerator moveCooldown()
     {
-        Debug.Log("Started Coroutine");
         yield return new WaitForSeconds(animationTime);
-        OnNewTileEntered();
         canMove = true;
-        Debug.Log("Stopped Coroutine");
-        yield return null;
+        OnNewTileEntered();
     }
+    
+    
     
 }

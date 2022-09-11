@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ public class PlayerController : Controller
     [SerializeField] private Transform cloneContainer;
     [SerializeField] private GameObject preview;
     [SerializeField] private Transform previewCloneContainer;
+
+    private bool canClone = true;
+    private bool cloningOnGoing = false;
 
     protected override void OnEnable()
     {
@@ -25,16 +29,29 @@ public class PlayerController : Controller
 
     protected override void Movement(Vector3 moveDirn)
     {
-        base.Movement(moveDirn);
-    }
-    
+        if (cloningOnGoing)
+        {
+            CreateClone(moveDirn);
+            cloningOnGoing = false;
+            StartCoroutine(cloneCooldown());
+        }
+        else
+        {
+            base.Movement(moveDirn);
+        }
 
+    }
+
+    
     private void PreviewValidMoves()
     {
+        if (!canClone  || cloningOnGoing) return;
+        cloningOnGoing = true;
+        canClone = false;
         foreach (Vector3 validDirection in validDirections)
         {
             if (!validDirections.Contains(-validDirection)) continue;
-            GameObject previewClone=Instantiate(preview, transform.position, Quaternion.identity,previewCloneContainer);
+            GameObject previewClone = Instantiate(preview, transform.position, Quaternion.identity,previewCloneContainer);
             LeanTween.move(previewClone, transform.position + 2 * validDirection, animationTime).setEase(easeCurve);
         }
     }
@@ -47,8 +64,13 @@ public class PlayerController : Controller
         }
         if (!validDirections.Contains(-1 * movementDirn) || !validDirections.Contains(movementDirn)) return;
 
-        GameObject newClone=Instantiate(clone, transform.position, Quaternion.identity, cloneContainer);
-        Movement(movementDirn);
+        GameObject newClone = Instantiate(clone, transform.position, Quaternion.identity, cloneContainer);
         newClone.GetComponent<CloneController>().Spawn(transform.position, -movementDirn);
+    }
+    
+    private IEnumerator cloneCooldown()
+    {
+        yield return new WaitForSeconds(0.2f);
+        canClone = true;
     }
 }
