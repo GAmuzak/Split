@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f0bf9503a8715418a68b04b14e1cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 0.2
+  animationTime: 0.2
   easeCurve: 4
 --- !u!65 &-3311812130651841026
 BoxCollider:

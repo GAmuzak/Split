@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    private List<Vector3> validDirections = new();
+    private List<Vector3> validDirections = new List<Vector3>();
     private Vector3[] checklist;
     private float destroyTime = 0.3f;
 
-    private void Start()
+    private void Awake()
     {
         checklist = new[] { transform.forward, -transform.forward, -transform.right, transform.right };
     }
