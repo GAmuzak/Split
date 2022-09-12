@@ -9,7 +9,7 @@ public class PlayerController : Controller
     [SerializeField] private Transform cloneContainer;
     [SerializeField] private GameObject preview;
     [SerializeField] private Transform previewCloneContainer;
-
+    [SerializeField] private float cloneCoolDown = 0.2f;
     private bool canClone = true;
     private bool cloningOnGoing = false;
 
@@ -70,7 +70,7 @@ public class PlayerController : Controller
     
     private IEnumerator cloneCooldown()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(cloneCoolDown);
         canClone = true;
     }
 }

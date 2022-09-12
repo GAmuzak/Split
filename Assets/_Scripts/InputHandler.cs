@@ -8,8 +8,7 @@ public class InputHandler : MonoBehaviour
     public static event Action<Vector3> MovementDirection;
     public static event Action<Vector3> CloneCreator;
     public static event Action ClonePreview;
-
-
+    
     public void OnMovementInput(InputAction.CallbackContext input)
     {
         Vector2 movementInput = input.ReadValue<Vector2>();

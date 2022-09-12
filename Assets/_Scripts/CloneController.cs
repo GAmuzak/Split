@@ -16,8 +16,7 @@ public class CloneController : Controller
     
     protected override void Movement(Vector3 dirn)
     {
-        Debug.Log($"CanMove:{canMove}");
-        Vector3 targetMove = new Vector3(dirn.x * mirrorLine.x, dirn.y * mirrorLine.y, dirn.z * mirrorLine.z);
+        Vector3 targetMove = Vector3.Scale(dirn, mirrorLine);
         base.Movement(targetMove);
     }
 
