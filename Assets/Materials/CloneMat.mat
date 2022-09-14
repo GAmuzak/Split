@@ -93,7 +93,7 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
-    - _EdgeThickness: 0.05
+    - _EdgeThickness: 0.01
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -116,12 +116,12 @@ Material:
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
-    - _enabled: 1
-    - _scaleValue: 0
+    - _enabled: 0
+    - _scaleValue: -0.26
     m_Colors:
-    - _BaseColor: {r: 0.0964, g: 0.42861304, b: 0.72300005, a: 0.7882353}
+    - _BaseColor: {r: 0.09803922, g: 0.42745098, b: 0.72156864, a: 1}
     - _Color: {r: 0.0964, g: 0.42861304, b: 0.72300005, a: 0.7882353}
-    - _EdgeColor: {r: 1.829863, g: 1.87083, b: 3.482202, a: 0}
+    - _EdgeColor: {r: 3.4648304, g: 3.4648304, b: 3.4648304, a: 1}
     - _EmissionColor: {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
