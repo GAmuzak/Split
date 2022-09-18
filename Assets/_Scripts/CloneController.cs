@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CloneController : Controller
 {
+    [SerializeField] private Disolver disolver;
+    
     private bool canDestroy;
     private Vector3 mirrorLine;
 
@@ -12,7 +14,6 @@ public class CloneController : Controller
     {
         StartCoroutine(WaitBeforeMerge());
     }
-
     
     protected override void Movement(Vector3 dirn)
     {
@@ -23,6 +24,7 @@ public class CloneController : Controller
     public void Spawn(Vector3 parentPosition, Vector3 moveDirn)
     {
         LeanTween.move(gameObject, parentPosition + 2*moveDirn, animationTime).setEase(easeCurve);
+        disolver.Dissolve(0, animationTime);
         mirrorLine = moveDirn.x != 0 ? new Vector3(-1,0,1) :  new Vector3(1,0,-1);
     }
 
@@ -41,4 +43,6 @@ public class CloneController : Controller
         yield return new WaitForSeconds(0.2f);
         canDestroy = true;
     }
+    
+    
 }

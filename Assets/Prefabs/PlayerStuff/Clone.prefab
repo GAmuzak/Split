@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 3583616196875045236}
   - component: {fileID: -3311812130651841026}
   - component: {fileID: 1612046457331911628}
+  - component: {fileID: 2659816142350397945}
   m_Layer: 0
   m_Name: Clone
   m_TagString: Clone
@@ -132,6 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationTime: 0.2
   easeCurve: 4
+  disolver: {fileID: 2659816142350397945}
 --- !u!65 &-3311812130651841026
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -161,3 +163,16 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2659816142350397945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7778152809563893991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb7c21acda405a4593683f237e04ff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cloneRenderer: {fileID: 599540109250839843}
