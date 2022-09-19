@@ -42,10 +42,10 @@ public abstract class Controller : MonoBehaviour
         Ray belowObject = new Ray(transform.position, -transform.up);
         if (Physics.Raycast(belowObject, out RaycastHit raycastHit, Mathf.Infinity))
         {
-            Transform tileUnderObject = raycastHit.transform;
-            if (tileUnderObject.CompareTag("Tile"))
+            if (TryGetComponent(out Tile tileUnderObject))
             {
-                validDirections = tileUnderObject.GetComponent<Tile>().GetValidDirections();
+                validDirections = tileUnderObject.GetValidDirections();
+                tileUnderObject.TileAction(gameObject);
             }
         }
     }
@@ -55,6 +55,11 @@ public abstract class Controller : MonoBehaviour
         yield return new WaitForSeconds(animationTime);
         canMove = true;
         OnNewTileEntered();
+    }
+
+    public virtual void DestroyAnimation()
+    {
+        //fill code
     }
     
     
