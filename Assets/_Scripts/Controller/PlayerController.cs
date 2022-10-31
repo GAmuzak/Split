@@ -27,10 +27,12 @@ public class PlayerController : Controller
         InputHandler.ClonePreview -= PreviewValidMoves;
     }
 
-    protected override void Movement(Vector3 moveDirn)
+    public override void Movement(Vector3 moveDirn)
     {
+        
         if (cloningOnGoing)
         {
+            Debug.Log("Move Bitch");
             CreateClone(moveDirn);
             cloningOnGoing = false;
             StartCoroutine(cloneCooldown());
@@ -48,12 +50,12 @@ public class PlayerController : Controller
         if (!canClone  || cloningOnGoing) return;
         cloningOnGoing = true;
         canClone = false;
-        foreach (Vector3 validDirection in validDirections)
-        {
-            if (!validDirections.Contains(-validDirection)) continue;
-            GameObject previewClone = Instantiate(preview, transform.position, Quaternion.identity,previewCloneContainer);
-            LeanTween.move(previewClone, transform.position + 2 * validDirection, animationTime).setEase(easeCurve);
-        }
+        // foreach (Directions directions in validTiles.Values)
+        // {
+        //     if (!validTiles.Contains(-validDirection)) continue;
+        //     GameObject previewClone = Instantiate(preview, transform.position, Quaternion.identity,previewCloneContainer);
+        //     LeanTween.move(previewClone, transform.position + 2 * validDirection, animationTime).setEase(easeCurve);
+        // }
     }
 
     private void CreateClone(Vector3 movementDirn)
@@ -62,8 +64,9 @@ public class PlayerController : Controller
         {
             Destroy(child.gameObject);
         }
-        if (!validDirections.Contains(-1 * movementDirn) || !validDirections.Contains(movementDirn)) return;
 
+        Directions targetDirection = ConversionMapping.inputToDirection[movementDirn];
+        if(validTiles[targetDirection] == null || validTiles[targetDirection] == null) return;
         GameObject newClone = Instantiate(clone, transform.position, Quaternion.identity, cloneContainer);
         newClone.GetComponent<CloneController>().Spawn(transform.position, -movementDirn);
     }

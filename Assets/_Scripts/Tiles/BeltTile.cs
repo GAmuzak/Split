@@ -20,6 +20,8 @@ public class BeltTile : Tile
 
     public override void TileAction(GameObject controllerObject)
     {
-        LeanTween.move(controllerObject, transform.position + 2 * directionChecklist[beltDirection], 0.2f);
+        Controller controller = controllerObject.GetComponent<Controller>();
+        Vector3 movementDirn = ConversionMapping.directionToInput[beltDirection];
+        controller.Movement(movementDirn);
     }
 }

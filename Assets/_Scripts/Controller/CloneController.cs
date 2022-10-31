@@ -15,7 +15,7 @@ public class CloneController : Controller
         StartCoroutine(WaitBeforeMerge());
     }
     
-    protected override void Movement(Vector3 dirn)
+    public override void Movement(Vector3 dirn)
     {
         Vector3 targetMove = Vector3.Scale(dirn, mirrorLine);
         base.Movement(targetMove);
