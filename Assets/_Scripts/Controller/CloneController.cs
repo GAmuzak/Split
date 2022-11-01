@@ -18,12 +18,13 @@ public class CloneController : Controller
     protected override void Movement(Vector3 dirn)
     {
         Vector3 targetMove = Vector3.Scale(dirn, mirrorLine);
+        Debug.Log(targetMove);
         base.Movement(targetMove);
     }
 
     public void Spawn(Vector3 parentPosition, Vector3 moveDirn)
     {
-        LeanTween.move(gameObject, parentPosition + 2*moveDirn, animationTime).setEase(easeCurve);
+        LeanTween.move(gameObject, parentPosition + stepSize*moveDirn, animationTime).setEase(easeCurve);
         disolver.Dissolve(0, animationTime);
         mirrorLine = moveDirn.x != 0 ? new Vector3(-1,0,1) :  new Vector3(1,0,-1);
     }

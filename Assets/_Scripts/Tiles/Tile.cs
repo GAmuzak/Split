@@ -17,33 +17,21 @@ public enum TileType
 
 public class Tile : MonoBehaviour
 {
-    protected event Action OnTileEntered;
     [SerializeField] protected List<LayerMask> interactable;
-
     [SerializeField] private TileType tileType;
+    
+    protected event Action OnTileEntered;
+    protected readonly Dictionary<Directions, Vector3> directionChecklist = new Dictionary<Directions, Vector3>();
+    
     private List<Vector3> validDirections = new List<Vector3>();
-    private Vector3[] checklist;
     private float destroyTime = 0.3f;
-    [SerializeField] protected static readonly Dictionary<Directions, Vector3> directionChecklist = new Dictionary<Directions, Vector3>();
 
     protected void Awake()
     {
-        checklist = new[] { transform.forward, -transform.forward, -transform.right, transform.right };
         directionChecklist.Add(Directions.Up, transform.forward);
-        directionChecklist.Add(Directions.Down, - transform.forward);
+        directionChecklist.Add(Directions.Down, -transform.forward);
         directionChecklist.Add(Directions.Left, -transform.right);
         directionChecklist.Add(Directions.Right, transform.right);
-
-    }
-
-    protected virtual void OnEnable()
-    {
-        
-    }
-
-    protected virtual void OnDisable()
-    {
-        
     }
 
     protected virtual void AnimateTile()
