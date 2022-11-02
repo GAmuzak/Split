@@ -49,15 +49,10 @@ public abstract class Controller : MonoBehaviour
                 _inputBufferVector = Vector3.zero;
             }
             else
-            {
                 movementPerfored = false;
-                canMove = true; //so we don't have cooldown for incorrect moves
-            }
         }
         else
-        {
             _inputBufferVector = moveDirn;
-        }
     }
     
     protected void OnNewTileEntered()
@@ -76,7 +71,6 @@ public abstract class Controller : MonoBehaviour
     protected IEnumerator moveCooldown()
     {
         yield return new WaitForSeconds(animationTime);
-        canMove = true;
         movementPerfored = false;
         OnNewTileEntered();
 

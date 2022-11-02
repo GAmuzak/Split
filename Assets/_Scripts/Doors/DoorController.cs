@@ -23,8 +23,9 @@ public class DoorController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag("Player") || opened) return;
         opened = true;
+        OpenDoor();
         doorCounterVisualizer.ResetTiles();
     }
 
