@@ -12,6 +12,7 @@ public class CloneController : Controller
 
     private void Start()
     {
+        
         StartCoroutine(WaitBeforeMerge());
     }
     
@@ -23,9 +24,10 @@ public class CloneController : Controller
 
     public void Spawn(Vector3 parentPosition, Vector3 moveDirn)
     {
-        LeanTween.move(gameObject, parentPosition + 2*moveDirn, animationTime).setEase(easeCurve);
+        LeanTween.move(gameObject, parentPosition + stepSize*moveDirn, animationTime).setEase(easeCurve);
         disolver.Dissolve(0, animationTime);
         mirrorLine = moveDirn.x != 0 ? new Vector3(-1,0,1) :  new Vector3(1,0,-1);
+        OnNewTileEntered();
     }
 
     private void OnTriggerEnter(Collider other)

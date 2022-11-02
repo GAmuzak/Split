@@ -123,12 +123,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a924ab88c0e6f004b979b84b538da8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 0.2
+  animationTime: 0.2
   easeCurve: 4
+  stepSize: 2
   clone: {fileID: 7778152809563893991, guid: f3b6720e380a9f74d823ee514ac67c7b, type: 3}
   cloneContainer: {fileID: 0}
   preview: {fileID: 7778152809563893991, guid: 93ae7aad9316f1441a804154089281e1, type: 3}
   previewCloneContainer: {fileID: 0}
+  cloneCoolDown: 0.2
 --- !u!65 &8072106984554552706
 BoxCollider:
   m_ObjectHideFlags: 0
