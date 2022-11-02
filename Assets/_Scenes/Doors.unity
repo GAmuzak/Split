@@ -1531,7 +1531,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &876571416
 Transform:
   m_ObjectHideFlags: 0
@@ -2213,6 +2213,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33cdfdb2d604e3045b1ef7830a3d4f65, type: 3}
+--- !u!1 &1243445267 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4801787962562620320, guid: cc48214928303d24489cd0a829f9ab51, type: 3}
+  m_PrefabInstance: {fileID: 5648087224020025604}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1243445271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243445267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71bf121eeeeeef14ca8294339d08c30e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileType: 0
+  interactable: []
 --- !u!1001 &1279145133
 PrefabInstance:
   m_ObjectHideFlags: 0
