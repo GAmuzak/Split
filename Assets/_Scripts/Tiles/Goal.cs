@@ -11,7 +11,6 @@ public class Goal : MonoBehaviour
     
     private float destroyTime = 0.3f;
     
-
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;

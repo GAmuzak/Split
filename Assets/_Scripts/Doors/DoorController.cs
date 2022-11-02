@@ -13,6 +13,7 @@ public class DoorController : MonoBehaviour
     private List<ButtonBehaviour> _buttons;
     private List<int> _values;
     private Animator _doorAnimator;
+    private bool _tempOpen;
     
     private void Start()
     {
@@ -24,8 +25,8 @@ public class DoorController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player") || opened) return;
-        opened = true;
         OpenDoor();
+        opened = true;
         doorCounterVisualizer.ResetTiles();
     }
 
