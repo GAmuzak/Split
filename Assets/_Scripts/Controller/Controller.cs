@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Controller : MonoBehaviour
@@ -12,6 +13,10 @@ public abstract class Controller : MonoBehaviour
     protected List<Vector3> validDirections=new();
     
     private bool canMove = true;
+
+    private bool movementPerfored;
+
+    private Vector3 _inputBufferVector;
 
     private void Start()
     {
@@ -31,17 +36,27 @@ public abstract class Controller : MonoBehaviour
 
     protected virtual void Movement(Vector3 moveDirn)
     {
-        if (!canMove) {return;}
-        canMove = false;
-        if (moveDirn.x > 0 && moveDirn.z > 0) moveDirn = new Vector3(moveDirn.x, 0, 0);
-        if (validDirections.Contains(moveDirn))
+        if (!canMove) return;
+        if (!movementPerfored)
         {
-            LeanTween.move(gameObject, transform.position + stepSize * moveDirn, animationTime).setEase(easeCurve);
-            StartCoroutine(moveCooldown());
+            movementPerfored = true;
+            if (moveDirn.x > 0 && moveDirn.z > 0) moveDirn = new Vector3(moveDirn.x, 0, 0);
+            if (validDirections.Contains(moveDirn))
+            {
+                LeanTween.move(gameObject, transform.position + stepSize * moveDirn, animationTime)
+                    .setEase(easeCurve);
+                StartCoroutine(moveCooldown());
+                _inputBufferVector = Vector3.zero;
+            }
+            else
+            {
+                movementPerfored = false;
+                canMove = true; //so we don't have cooldown for incorrect moves
+            }
         }
         else
         {
-            canMove = true; //so we don't have cooldown for incorrect moves
+            _inputBufferVector = moveDirn;
         }
     }
     
@@ -62,7 +77,13 @@ public abstract class Controller : MonoBehaviour
     {
         yield return new WaitForSeconds(animationTime);
         canMove = true;
+        movementPerfored = false;
         OnNewTileEntered();
+
+        if (_inputBufferVector != Vector3.zero)
+        {
+            Movement(_inputBufferVector);
+        }
     }
 
     public virtual void DestroyAnimation()
