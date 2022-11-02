@@ -48,8 +48,10 @@ public class DoorCounterVisualizer : MonoBehaviour
     {
         if (_counterTiles.Count == 0) return;
 
-        _counterTiles[_index].transform.GetChild(0).GetComponent<MeshRenderer>().material =
+        var counterTileMesh = _counterTiles[_index].transform.GetChild(0);
+        counterTileMesh.GetComponent<MeshRenderer>().material =
             transform.GetChild(0).GetComponent<MeshRenderer>().material;
+        counterTileMesh.GetComponent<Animator>().Play("Count", -1, 0f);
         _index--;
     }
 

@@ -3562,7 +3562,7 @@ PrefabInstance:
       objectReference: {fileID: 5325700188016368349}
     - target: {fileID: 7529228676475848412, guid: 4490e3fb64c4f2b4988ef9783fdfde95, type: 3}
       propertyPath: buttonDictionary.m_values.Array.data[0]
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7529228676475848413, guid: 4490e3fb64c4f2b4988ef9783fdfde95, type: 3}
       propertyPath: m_RootOrder
