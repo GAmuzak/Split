@@ -48,7 +48,7 @@ public class DoorCounterVisualizer : MonoBehaviour
     {
         if (_counterTiles.Count == 0) return;
 
-        _counterTiles[_index].GetComponent<MeshRenderer>().material =
+        _counterTiles[_index].transform.GetChild(0).GetComponent<MeshRenderer>().material =
             transform.GetChild(0).GetComponent<MeshRenderer>().material;
         _index--;
     }

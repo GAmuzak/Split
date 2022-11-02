@@ -2070,7 +2070,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 994074127}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.6466873, y: 3.3648455, z: -5.2274714}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3528,6 +3528,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 994074128}
     m_Modifications:
+    - target: {fileID: 251826815608771368, guid: 4490e3fb64c4f2b4988ef9783fdfde95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 662342671827713446, guid: 4490e3fb64c4f2b4988ef9783fdfde95, type: 3}
       propertyPath: factor
       value: 1.8
@@ -3538,7 +3542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442807926220493860, guid: 4490e3fb64c4f2b4988ef9783fdfde95, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7529228676475848412, guid: 4490e3fb64c4f2b4988ef9783fdfde95, type: 3}
       propertyPath: tile
