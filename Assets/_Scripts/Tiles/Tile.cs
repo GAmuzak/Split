@@ -17,8 +17,9 @@ public enum TileType
 
 public class Tile : MonoBehaviour
 {
+    public TileType tileType;
+    
     [SerializeField] protected List<LayerMask> interactable;
-    [SerializeField] private TileType tileType;
     
     protected event Action OnTileEntered;
     protected readonly Dictionary<Directions, Vector3> directionChecklist = new Dictionary<Directions, Vector3>();
@@ -45,9 +46,10 @@ public class Tile : MonoBehaviour
         foreach (Vector3 direction in directionChecklist.Values)
         {
             Ray ray = new(transform.position,direction);
-            if (Physics.Raycast(ray, out RaycastHit _, 2))
+            if (Physics.Raycast(ray, out RaycastHit hit, 2))
             {
-                validDirections.Add(direction);
+                if (hit.transform.GetComponent<Tile>().tileType != TileType.Wall)
+                    validDirections.Add(direction);
             }
         }
         return validDirections;
