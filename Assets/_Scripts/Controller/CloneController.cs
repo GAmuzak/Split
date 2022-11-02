@@ -12,13 +12,13 @@ public class CloneController : Controller
 
     private void Start()
     {
+        
         StartCoroutine(WaitBeforeMerge());
     }
     
     protected override void Movement(Vector3 dirn)
     {
         Vector3 targetMove = Vector3.Scale(dirn, mirrorLine);
-        Debug.Log(targetMove);
         base.Movement(targetMove);
     }
 
@@ -27,6 +27,7 @@ public class CloneController : Controller
         LeanTween.move(gameObject, parentPosition + stepSize*moveDirn, animationTime).setEase(easeCurve);
         disolver.Dissolve(0, animationTime);
         mirrorLine = moveDirn.x != 0 ? new Vector3(-1,0,1) :  new Vector3(1,0,-1);
+        OnNewTileEntered();
     }
 
     private void OnTriggerEnter(Collider other)

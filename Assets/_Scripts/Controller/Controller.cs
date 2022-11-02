@@ -13,7 +13,7 @@ public abstract class Controller : MonoBehaviour
     
     private bool canMove = true;
 
-    void Start()
+    private void Start()
     {
         stepSize *= transform.localScale.x; //slightly hacky, but unlikely situation in the first place
         OnNewTileEntered();
@@ -44,8 +44,8 @@ public abstract class Controller : MonoBehaviour
             canMove = true; //so we don't have cooldown for incorrect moves
         }
     }
-
-    private void OnNewTileEntered()
+    
+    protected void OnNewTileEntered()
     {
         Ray belowObject = new Ray(transform.position, -transform.up);
         if (Physics.Raycast(belowObject, out RaycastHit raycastHit, Mathf.Infinity))
