@@ -1,17 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Controller : MonoBehaviour
 {
+    public Tile tileUnder;
+    public List<Vector3> validDirections=new();
+    
+    [SerializeField] private Animator animator;
     [SerializeField] protected float animationTime;
     [SerializeField] protected LeanTweenType easeCurve;
     [SerializeField] protected float stepSize = 2f;
-
-    protected List<Vector3> validDirections=new();
     
     private bool canMove = true;
+
+    private bool movementPerfored;
+
+    private Vector3 _inputBufferVector;
 
     private void Start()
     {
@@ -31,18 +38,24 @@ public abstract class Controller : MonoBehaviour
 
     protected virtual void Movement(Vector3 moveDirn)
     {
-        if (!canMove) {return;}
-        canMove = false;
-        if (moveDirn.x > 0 && moveDirn.z > 0) moveDirn = new Vector3(moveDirn.x, 0, 0);
-        if (validDirections.Contains(moveDirn))
+        if (!canMove) return;
+        if (!movementPerfored)
         {
-            LeanTween.move(gameObject, transform.position + stepSize * moveDirn, animationTime).setEase(easeCurve);
-            StartCoroutine(moveCooldown());
+            animator.Play("Move", -1, 0f);
+            movementPerfored = true;
+            if (moveDirn.x > 0 && moveDirn.z > 0) moveDirn = new Vector3(moveDirn.x, 0, 0);
+            if (validDirections.Contains(moveDirn))
+            {
+                LeanTween.move(gameObject, transform.position + stepSize * moveDirn, animationTime)
+                    .setEase(easeCurve);
+                StartCoroutine(MoveCooldown());
+                _inputBufferVector = Vector3.zero;
+            }
+            else
+                movementPerfored = false;
         }
         else
-        {
-            canMove = true; //so we don't have cooldown for incorrect moves
-        }
+            _inputBufferVector = moveDirn;
     }
     
     protected void OnNewTileEntered()
@@ -52,17 +65,23 @@ public abstract class Controller : MonoBehaviour
         {
             if (raycastHit.transform.gameObject.TryGetComponent<Tile>(out Tile tileUnderObject))
             {
+                tileUnder = tileUnderObject;
                 validDirections = tileUnderObject.GetValidDirections();
                 tileUnderObject.TileAction(gameObject);
             }
         }
     }
     
-    protected IEnumerator moveCooldown()
+    protected IEnumerator MoveCooldown()
     {
         yield return new WaitForSeconds(animationTime);
-        canMove = true;
+        movementPerfored = false;
         OnNewTileEntered();
+
+        if (_inputBufferVector != Vector3.zero)
+        {
+            Movement(_inputBufferVector);
+        }
     }
 
     public virtual void DestroyAnimation()
