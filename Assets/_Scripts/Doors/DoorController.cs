@@ -11,12 +11,12 @@ public class DoorController : MonoBehaviour
     [SerializeField] private ButtonIntDictionary buttonDictionary;
     [SerializeField] private LayerMask player;
     [SerializeField] private float raycastDistance;
+    [SerializeField] private int index;
     
     private DoorCounterVisualizer _doorCounterVisualizer;
     private List<ButtonBehaviour> _buttons;
     private List<int> _values;
     private Animator _doorAnimator;
-    private int _index;
     private bool _buttonActivated;
     private int _activatedButton;
     private Ray _ray;
@@ -47,15 +47,16 @@ public class DoorController : MonoBehaviour
         opened = true;
         OpenDoor();
         _doorCounterVisualizer.ResetTiles();
+        transform.GetComponent<Collider>().enabled = false;
     }
 
     private void Move(Vector3 obj)
     {
         if (!_buttonActivated) return;
         if (opened) return;
-        if (_index > 1)
+        if (index > 1)
         {
-            _index--;
+            index--;
             _doorCounterVisualizer.CountDown();
 
             StartCoroutine(CheckForPlayerInTile());
@@ -69,10 +70,10 @@ public class DoorController : MonoBehaviour
         yield return new WaitForSeconds(.3f);
         if (Physics.Raycast(_ray, raycastDistance, player))
         {
-            if (_index > 2)
+            if (index > 2)
             {
                 Deactivate();
-                _index = 0;
+                index = 0;
             }
         }
     }
@@ -92,15 +93,17 @@ public class DoorController : MonoBehaviour
 
     public void OpenDoor(ButtonBehaviour button)
     {
+        if (opened) return;
         if (tempOpen) return;
         _buttonActivated = true;
+        transform.GetComponent<Collider>().enabled = false;
         for (int i = 0; i < _buttons.Count; i++)
             if (_buttons[i] == button)
             {
                 _activatedButton = i;
-                _index = _values[i];
+                index = _values[i];
             }
-        _doorCounterVisualizer.SetVisualizer(_index);
+        _doorCounterVisualizer.SetVisualizer(index);
         
         _doorAnimator.Play("Door Opening", -1, 0f);
         tempOpen = true;
@@ -110,6 +113,7 @@ public class DoorController : MonoBehaviour
     {
         _doorAnimator.Play("Door Closing", -1, 0f);
         _doorCounterVisualizer.ResetTiles();
+        transform.GetComponent<Collider>().enabled = true;
         tempOpen = false;
     }
 
