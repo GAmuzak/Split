@@ -32,11 +32,16 @@ public class ButtonBehaviour : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (_allOpen) return;
+        foreach (var doorController in doorControllers)
+        {
+            if (doorController.tempOpen) return;
+        }
+
         if (!other.CompareTag("Player")) return;
         LeanTween.scaleZ(_button, _pressedScale, .1f);
 
         _closedDoors = 0;
-        
+
         foreach (var doorController in doorControllers)
             doorController.OpenDoor(this);
     }
