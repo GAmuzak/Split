@@ -128,23 +128,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3203497384974253548, guid: 33cdfdb2d604e3045b1ef7830a3d4f65, type: 3}
   m_PrefabInstance: {fileID: 626836685}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &14509915 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2016178708412244634, guid: 4d9d47894e11c614d873fa0a8c014835, type: 3}
-  m_PrefabInstance: {fileID: 8072106984554552700}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &14509922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 14509915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f757bbbc5807847489256918e4ec91d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &23636511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2159,6 +2142,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 751453972}
     - target: {fileID: 7529228676475848412, guid: 4490e3fb64c4f2b4988ef9783fdfde95, type: 3}
+      propertyPath: raycastDistance
+      value: 1.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529228676475848412, guid: 4490e3fb64c4f2b4988ef9783fdfde95, type: 3}
       propertyPath: buttonDictionary.m_keys.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -2180,7 +2167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7529228676475848412, guid: 4490e3fb64c4f2b4988ef9783fdfde95, type: 3}
       propertyPath: buttonDictionary.m_values.Array.data[1]
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7529228676475848413, guid: 4490e3fb64c4f2b4988ef9783fdfde95, type: 3}
       propertyPath: m_RootOrder
@@ -3797,6 +3784,14 @@ PrefabInstance:
     - target: {fileID: 2016178708412244634, guid: 4d9d47894e11c614d873fa0a8c014835, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102595303025514911, guid: 4d9d47894e11c614d873fa0a8c014835, type: 3}
+      propertyPath: maxDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102595303025514911, guid: 4d9d47894e11c614d873fa0a8c014835, type: 3}
+      propertyPath: obstacle.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 5779960087925218893, guid: 4d9d47894e11c614d873fa0a8c014835, type: 3}
       propertyPath: m_RootOrder

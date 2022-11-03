@@ -6,11 +6,12 @@ using UnityEngine;
 
 public abstract class Controller : MonoBehaviour
 {
+    public Tile tileUnder;
+    public List<Vector3> validDirections=new();
+    
     [SerializeField] protected float animationTime;
     [SerializeField] protected LeanTweenType easeCurve;
     [SerializeField] protected float stepSize = 2f;
-
-    protected List<Vector3> validDirections=new();
     
     private bool canMove = true;
 
@@ -45,7 +46,7 @@ public abstract class Controller : MonoBehaviour
             {
                 LeanTween.move(gameObject, transform.position + stepSize * moveDirn, animationTime)
                     .setEase(easeCurve);
-                StartCoroutine(moveCooldown());
+                StartCoroutine(MoveCooldown());
                 _inputBufferVector = Vector3.zero;
             }
             else
@@ -62,13 +63,14 @@ public abstract class Controller : MonoBehaviour
         {
             if (raycastHit.transform.gameObject.TryGetComponent<Tile>(out Tile tileUnderObject))
             {
+                tileUnder = tileUnderObject;
                 validDirections = tileUnderObject.GetValidDirections();
                 tileUnderObject.TileAction(gameObject);
             }
         }
     }
     
-    protected IEnumerator moveCooldown()
+    protected IEnumerator MoveCooldown()
     {
         yield return new WaitForSeconds(animationTime);
         movementPerfored = false;
