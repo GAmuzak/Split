@@ -1,57 +1,43 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ButtonBehaviour : MonoBehaviour
 {
-    public int index;
+    [HideInInspector] public List<DoorController> doorControllers;
     
-    [HideInInspector] public DoorController doorController;
-
-    private readonly float _originalScale = 150f;
     private readonly float _pressedScale = 50f;
-    private bool _buttonActivated;
+    private readonly float _originalScale = 150f;
     private GameObject _button;
-
-    private void Start()
-    {
-        _button = transform.GetChild(1).gameObject;
-    }
+    private bool _allOpen;
+    private int _closedDoors;
 
     private void Awake()
     {
-        InputHandler.MovementDirection += Move;
+        doorControllers = new List<DoorController>();
+        _button = transform.GetChild(1).gameObject;
     }
 
-    private void OnDisable()
+    public void CheckAllClosed()
     {
-        InputHandler.MovementDirection -= Move;
+        foreach (var doorController in doorControllers)
+        {
+            if (!doorController.tempOpen)
+                _closedDoors++;
+        }
+        
+        if (_closedDoors >= doorControllers.Count)
+            LeanTween.scaleZ(_button, _originalScale, .1f);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player") || doorController.opened) return;
+        if (_allOpen) return;
+        if (!other.CompareTag("Player")) return;
         LeanTween.scaleZ(_button, _pressedScale, .1f);
-        
-        doorController.OpenDoor();
-        
-        _buttonActivated = true;
-        doorController.AssignIndicesToButtons();
-        doorController.doorCounterVisualizer.SetVisualizer(index);
-    }
 
-    private void Move(Vector3 direction)
-    {
-        if (!_buttonActivated) return;
-        if (index > 1)
-        {
-            index--;
-            doorController.doorCounterVisualizer.CountDown();
-        }
-        else
-        {
-            if (doorController.opened) return;
-            LeanTween.scaleZ(_button, _originalScale, .1f);
-            _buttonActivated = false;
-            doorController.CloseDoor();
-        }
+        _closedDoors = 0;
+        
+        foreach (var doorController in doorControllers)
+            doorController.OpenDoor(this);
     }
 }

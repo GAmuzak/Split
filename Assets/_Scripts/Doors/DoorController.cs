@@ -5,56 +5,93 @@ public class DoorController : MonoBehaviour
 {
     public bool opened;
     
+    [HideInInspector] public bool tempOpen;
     [HideInInspector] public DoorCounterVisualizer doorCounterVisualizer;
 
     [SerializeField] private ButtonIntDictionary buttonDictionary;
-    [SerializeField] private Tile tile;
     
     private List<ButtonBehaviour> _buttons;
     private List<int> _values;
     private Animator _doorAnimator;
-    private bool _tempOpen;
+    private int _index;
+    private bool _buttonActivated;
+    private int _activatedButton;
     
     private void Start()
     {
-        AssignIndicesToButtons();
+        ConvertDictionaryToList();
         doorCounterVisualizer = GetComponent<DoorCounterVisualizer>();
         _doorAnimator = transform.GetChild(0).GetComponent<Animator>();
+    }
+    
+    private void Awake()
+    {
+        InputHandler.MovementDirection += Move;
+    }
+
+    private void OnDisable()
+    {
+        InputHandler.MovementDirection -= Move;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player") || opened) return;
-        OpenDoor();
         opened = true;
+        OpenDoor();
         doorCounterVisualizer.ResetTiles();
     }
 
-    public void OpenDoor()
+    private void Move(Vector3 obj)
     {
-        if (_tempOpen) return;
+        if (!_buttonActivated) return;
+        if (opened) return;
+        if (_index > 1)
+        {
+            _index--;
+        }
+        else
+        {
+            CloseDoor();
+            _buttons[_activatedButton].CheckAllClosed();
+            _buttonActivated = false;
+        }
+    }
+
+    private void OpenDoor()
+    {
+        if (tempOpen) return;
+        _doorAnimator.Play("Door Open Static", -1, 0f);
+    }
+
+    public void OpenDoor(ButtonBehaviour button)
+    {
+        if (tempOpen) return;
+        _buttonActivated = true;
+        for (int i = 0; i < _buttons.Count; i++)
+            if (_buttons[i] == button)
+            {
+                _activatedButton = i;
+                _index = _values[i];
+            }
+        
         _doorAnimator.Play("Door Opening", -1, 0f);
-        _tempOpen = true;
-        tile.tileType = TileType.Belt;
+        tempOpen = true;
     }
     
-    public void CloseDoor()
+    private void CloseDoor()
     {
         _doorAnimator.Play("Door Closing", -1, 0f);
-        tile.tileType = TileType.Wall;
         doorCounterVisualizer.ResetTiles();
-        _tempOpen = false;
+        tempOpen = false;
     }
 
-    public void AssignIndicesToButtons()
+    private void ConvertDictionaryToList()
     {
         _buttons = new List<ButtonBehaviour>(buttonDictionary.Keys);
         _values = new List<int>(buttonDictionary.Values);
 
-        for (int i = 0; i < _buttons.Count; i++)
-        {
-            _buttons[i].index = _values[i];
-            _buttons[i].doorController = this;
-        }
+        foreach (var button in _buttons)
+            button.doorControllers.Add(this);
     }
 }
