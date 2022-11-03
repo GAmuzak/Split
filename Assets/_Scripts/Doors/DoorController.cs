@@ -32,7 +32,9 @@ public class DoorController : MonoBehaviour
 
     public void OpenDoor()
     {
+        if (_tempOpen) return;
         _doorAnimator.Play("Door Opening", -1, 0f);
+        _tempOpen = true;
         tile.tileType = TileType.Belt;
     }
     
@@ -41,6 +43,7 @@ public class DoorController : MonoBehaviour
         _doorAnimator.Play("Door Closing", -1, 0f);
         tile.tileType = TileType.Wall;
         doorCounterVisualizer.ResetTiles();
+        _tempOpen = false;
     }
 
     public void AssignIndicesToButtons()
