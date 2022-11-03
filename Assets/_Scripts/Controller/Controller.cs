@@ -9,6 +9,7 @@ public abstract class Controller : MonoBehaviour
     public Tile tileUnder;
     public List<Vector3> validDirections=new();
     
+    [SerializeField] private Animator animator;
     [SerializeField] protected float animationTime;
     [SerializeField] protected LeanTweenType easeCurve;
     [SerializeField] protected float stepSize = 2f;
@@ -40,6 +41,7 @@ public abstract class Controller : MonoBehaviour
         if (!canMove) return;
         if (!movementPerfored)
         {
+            animator.Play("Move", -1, 0f);
             movementPerfored = true;
             if (moveDirn.x > 0 && moveDirn.z > 0) moveDirn = new Vector3(moveDirn.x, 0, 0);
             if (validDirections.Contains(moveDirn))

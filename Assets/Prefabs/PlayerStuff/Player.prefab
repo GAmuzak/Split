@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileUnder: {fileID: 0}
   validDirections: []
+  animator: {fileID: 3380877786864360239}
   animationTime: 0.2
   easeCurve: 4
   stepSize: 2
@@ -178,7 +179,7 @@ MonoBehaviour:
   obstacle:
     serializedVersion: 2
     m_Bits: 64
-  maxDistance: 5
+  maxDistance: 3
 --- !u!1001 &8881679235525137226
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -240,6 +241,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 766f5402832f6c04d80952c29daf2893, type: 3}
+--- !u!1 &7159150980507661963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1736271624652203457, guid: 766f5402832f6c04d80952c29daf2893, type: 3}
+  m_PrefabInstance: {fileID: 8881679235525137226}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3380877786864360239
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7159150980507661963}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 877aa5f3d42018c4a92250da9ea7ceff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &7498978600620403761 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1392643057518411643, guid: 766f5402832f6c04d80952c29daf2893, type: 3}

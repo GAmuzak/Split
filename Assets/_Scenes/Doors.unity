@@ -1458,7 +1458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &876571416
 Transform:
   m_ObjectHideFlags: 0
@@ -3781,18 +3781,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2016178708412244634, guid: 4d9d47894e11c614d873fa0a8c014835, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4102595303025514911, guid: 4d9d47894e11c614d873fa0a8c014835, type: 3}
-      propertyPath: maxDistance
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4102595303025514911, guid: 4d9d47894e11c614d873fa0a8c014835, type: 3}
-      propertyPath: obstacle.m_Bits
-      value: 64
-      objectReference: {fileID: 0}
     - target: {fileID: 5779960087925218893, guid: 4d9d47894e11c614d873fa0a8c014835, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -3836,18 +3824,6 @@ PrefabInstance:
     - target: {fileID: 5779960087925218893, guid: 4d9d47894e11c614d873fa0a8c014835, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8072106984554552703, guid: 4d9d47894e11c614d873fa0a8c014835, type: 3}
-      propertyPath: m_NotificationBehavior
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8072106984554552704, guid: 4d9d47894e11c614d873fa0a8c014835, type: 3}
-      propertyPath: time
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 8072106984554552704, guid: 4d9d47894e11c614d873fa0a8c014835, type: 3}
-      propertyPath: animationTime
-      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8072106984554552704, guid: 4d9d47894e11c614d873fa0a8c014835, type: 3}
       propertyPath: cloneContainer
