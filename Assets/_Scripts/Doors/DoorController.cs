@@ -43,11 +43,11 @@ public class DoorController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player") || opened) return;
-        opened = true;
-        OpenDoor();
-        _doorCounterVisualizer.ResetTiles();
-        transform.GetComponent<Collider>().enabled = false;
+        // if (!other.CompareTag("Player") || opened) return;
+        // opened = true;
+        // OpenDoor();
+        // _doorCounterVisualizer.ResetTiles();
+        // transform.GetComponent<Collider>().enabled = false;
     }
 
     private void Move(Vector3 obj)
@@ -59,7 +59,7 @@ public class DoorController : MonoBehaviour
             index--;
             _doorCounterVisualizer.CountDown();
 
-            StartCoroutine(CheckForPlayerInTile());
+            // StartCoroutine(CheckForPlayerInTile());
         }
         else
             Deactivate();
