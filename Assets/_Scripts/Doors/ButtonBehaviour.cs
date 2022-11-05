@@ -37,7 +37,7 @@ public class ButtonBehaviour : MonoBehaviour
             if (doorController.tempOpen) return;
         }
 
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag("Player") || other.CompareTag("Clone")) return;
         LeanTween.scaleZ(_button, _pressedScale, .1f);
 
         _closedDoors = 0;
