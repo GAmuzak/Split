@@ -11,6 +11,7 @@ public class InputHandler : MonoBehaviour
     
     public void OnMovementInput(InputAction.CallbackContext input)
     {
+        Debug.Log("OnMovemementInput");
         Vector2 movementInput = input.ReadValue<Vector2>();
         Vector3 movementInputCasted = new Vector3(movementInput.x, 0, movementInput.y);
         MovementDirection?.Invoke(movementInputCasted);

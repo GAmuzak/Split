@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Clone
   - Tile
+  - StyleManager
   layers:
   - Default
   - TransparentFX
